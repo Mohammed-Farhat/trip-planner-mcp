@@ -1,0 +1,14 @@
+# Python / uv
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Secrets
+.env
+
+# Runtime data written by the save_trip tool
+data/
+
+# Course handout (not ours to redistribute)
+C5 - Agent Tools.pdf
