@@ -29,7 +29,7 @@ STEPS = [
     ("Action tool", "Save a trip to Byblos for this Saturday and Sunday. Note: visit the old souk and the citadel."),
     ("Orchestration tool", "Plan a 3-day trip to Paris, France starting next Monday."),
     ("Read the trips://saved resource", "/trips"),
-    ("Failure: unknown city", "Plan a weekend trip to Xyzzyville."),
+    ("Failure: unknown city", "Plan a 2-day trip to Xyzzyville starting next Saturday."),
     ("Failure: duplicate save", "Save the Byblos trip for this Saturday and Sunday again."),
     ("Nothing extra was saved", "/trips"),
 ]
