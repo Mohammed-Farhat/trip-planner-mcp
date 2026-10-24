@@ -13,5 +13,8 @@ data/
 # Local-only material not required for submission (plan, video script, helper scripts)
 docs/
 
+# Screencast recording: 130 MB is over GitHub's 100 MB file limit; it is hosted on Google Drive (link in README)
+demo_video/
+
 # Course handout (not ours to redistribute)
 C5 - Agent Tools.pdf

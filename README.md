@@ -1,8 +1,14 @@
 # Weather & Trip Planner: an MCP toolkit with FastMCP and the OpenAI Agents SDK
 
-EECE 503P/798S Agentic Systems, assignment C5 (Agent Tools).
+EECE 503P/798S: Agentic Systems · Assignment C5 (Agent Tools)
+
+**Student:** Mohammed Farhat · **ID:** 202772669
+
+**GitHub repository:** https://github.com/Mohammed-Farhat/trip-planner-mcp
 
 A small MCP server built with **FastMCP** exposes exactly **three tools**: one Data tool, one Action tool and one Orchestration tool. An agent built with the **OpenAI Agents SDK** acts as the MCP host/client and routes user requests to them. Weather comes from [Open-Meteo](https://open-meteo.com/), which needs no API key.
+
+**Demo video:** [Watch on Google Drive](https://drive.google.com/file/d/1NeRjG5fzuQFYSTrXw6vGeV90q5ZUC6dq/view?usp=sharing)
 
 | Deliverable | Where |
 |---|---|
@@ -12,7 +18,7 @@ A small MCP server built with **FastMCP** exposes exactly **three tools**: one D
 | Configuration and setup instructions | this README, [.env.example](.env.example) |
 | Tests, including every failure case | [tests/](tests/) |
 | Reflection | [reflection.md](reflection.md) |
-| Screencast video | _add the unlisted YouTube link here_ |
+| Screencast video | [Google Drive](https://drive.google.com/file/d/1NeRjG5fzuQFYSTrXw6vGeV90q5ZUC6dq/view?usp=sharing) |
 
 ## Architecture
 
