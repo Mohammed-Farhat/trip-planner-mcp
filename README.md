@@ -6,12 +6,12 @@ A small MCP server built with **FastMCP** exposes exactly **three tools**: one D
 
 | Deliverable | Where |
 |---|---|
-| Written summary (Part 1) | [docs/summary.md](docs/summary.md) |
+| Written summary (Part 1) | [summary.md](summary.md) |
 | FastMCP server (3 tools + 2 resources) | [trip_mcp/server.py](trip_mcp/server.py) |
 | Agents SDK host/client | [host/agent.py](host/agent.py) |
-| Tests and example scripts, including failure cases | [tests/](tests/), [scripts/smoke_client.py](scripts/smoke_client.py), [scripts/demo.py](scripts/demo.py) |
-| Reflection | [docs/reflection.md](docs/reflection.md) |
-| Screencast script | [docs/demo_script.md](docs/demo_script.md) |
+| Configuration and setup instructions | this README, [.env.example](.env.example) |
+| Tests, including every failure case | [tests/](tests/) |
+| Reflection | [reflection.md](reflection.md) |
 | Screencast video | _add the unlisted YouTube link here_ |
 
 ## Architecture
@@ -66,7 +66,7 @@ uv sync
 cp .env.example .env
 ```
 
-Then set `OPENAI_API_KEY` in `.env`. Only the live agent needs it; the tests and the smoke script don't. Optional settings: `OPENAI_DEFAULT_MODEL` (the SDK default is `gpt-5.6-luna`) and `TRIPS_FILE` (default `data/trips.json`).
+Then set `OPENAI_API_KEY` in `.env`. Only the live agent needs it; the tests don't. Optional settings: `OPENAI_DEFAULT_MODEL` (the SDK default is `gpt-5.6-luna`) and `TRIPS_FILE` (default `data/trips.json`).
 
 ## Run
 
@@ -82,11 +82,7 @@ One question, then exit:
 uv run python -m host.agent "Plan a 3-day trip to Paris, France starting next Monday"
 ```
 
-Scripted screencast run. It starts from an empty `data/demo_trips.json`.
-
-```bash
-uv run python scripts/demo.py
-```
+Example prompts: "What's the weather in Beirut for the next 3 days?" (Data tool), "Save a trip to Byblos for this Saturday and Sunday" (Action tool), "Plan a 3-day trip to Paris, France starting next Monday" (Orchestration tool), "Plan a 2-day trip to Xyzzyville starting next Saturday" (failure: unknown city, nothing saved).
 
 Each agent turn prints the round trip: `host -> MCP client -> server` lines from the host's `RunHooks`, `[server]` lines from the server's stderr log, and a link to the run's trace on the OpenAI dashboard.
 
@@ -113,12 +109,6 @@ Optional checks against the real Open-Meteo API:
 uv run pytest -m live
 ```
 
-No-LLM walkthrough of every tool and failure case through the agent's own MCP client:
-
-```bash
-uv run python scripts/smoke_client.py
-```
-
 | File | What it covers |
 |---|---|
 | `tests/test_tools.py` | Exactly three tools, with descriptions, typed schemas and annotations; each tool's happy path and **each failure case**; the orchestrator saving nothing when step 1 fails; both resources |
@@ -136,9 +126,9 @@ trip_mcp/            MCP server package
   storage.py         JSON trip store (atomic writes, duplicate and corruption checks)
   planning.py        Pure helpers: packing list and summary
 host/agent.py        MCP host: Agents SDK agent, MCPServerStdio client, round-trip logging, chat loop
-scripts/             smoke_client.py (no LLM), demo.py (screencast)
-tests/               pytest suite
-docs/                summary, reflection, screencast script
+tests/               pytest suite (31 offline tests + 2 opt-in live tests)
+summary.md           Part 1 written summary
+reflection.md        Reflection
 ```
 
 ## Attribution

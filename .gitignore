@@ -10,5 +10,8 @@ __pycache__/
 # Runtime data written by the save_trip tool
 data/
 
+# Local-only material not required for submission (plan, video script, helper scripts)
+docs/
+
 # Course handout (not ours to redistribute)
 C5 - Agent Tools.pdf
