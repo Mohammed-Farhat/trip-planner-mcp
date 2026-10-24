@@ -54,6 +54,17 @@ How the tools are put together:
 - **MCP annotations:** each tool marks its category. The Data tool is `readOnlyHint=True`; the Action and Orchestration tools are `readOnlyHint=False` and `destructiveHint=False`.
 - **Resources:** two read-only `@mcp.resource` lookups, `trips://saved` and `trips://{trip_id}`. They are not tools, so the server still has exactly three tools.
 
+## Challenges and solutions
+
+| Challenge | How it was solved |
+|---|---|
+| **Keeping tools single-purpose with only three tools:** the forecast needs a city lookup | Each tool owns one effect: the Data tool only reads, the Action tool only writes, the Orchestration tool only coordinates. The city lookup stays inside the Data tool, and "City, Country" (e.g. "Tripoli, Lebanon") resolves ambiguous names. |
+| **The Orchestration tool could duplicate the other tools' logic** | `plan_trip` calls the registered tools through the server (`mcp.call_tool`), so it gets exactly the same validation and error messages. |
+| **A failure could leave a half-saved trip** | `plan_trip` stops at the failed step, says which step failed, and saves nothing ("stopped at step 1 … Nothing was saved"). |
+| **The weather API timed out during development** | One automatic retry, then a clear error instead of a silent failure. The tests simulate timeouts and server errors without the internet. |
+| **The planned "unknown city", Atlantis, is a real town in South Africa** | The failure tests and demo use "Xyzzyville", a name with no match. |
+| **The agent asked "which weekend?" instead of calling a tool** | Prompts use explicit dates, and the agent's instructions include today's date and which tool to use for what. |
+
 ## Setup
 
 Requirements: Python 3.11+ and [uv](https://docs.astral.sh/uv/). Tested on Windows 11 with Python 3.12, fastmcp 4.1.3, openai-agents 0.24.0 and mcp 2.3.0.
