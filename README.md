@@ -58,12 +58,10 @@ How the tools are put together:
 
 | Challenge | How it was solved |
 |---|---|
-| **Keeping tools single-purpose with only three tools:** the forecast needs a city lookup | Each tool owns one effect: the Data tool only reads, the Action tool only writes, the Orchestration tool only coordinates. The city lookup stays inside the Data tool, and "City, Country" (e.g. "Tripoli, Lebanon") resolves ambiguous names. |
-| **The Orchestration tool could duplicate the other tools' logic** | `plan_trip` calls the registered tools through the server (`mcp.call_tool`), so it gets exactly the same validation and error messages. |
-| **A failure could leave a half-saved trip** | `plan_trip` stops at the failed step, says which step failed, and saves nothing ("stopped at step 1 … Nothing was saved"). |
-| **The weather API timed out during development** | One automatic retry, then a clear error instead of a silent failure. The tests simulate timeouts and server errors without the internet. |
-| **The planned "unknown city", Atlantis, is a real town in South Africa** | The failure tests and demo use "Xyzzyville", a name with no match. |
-| **The agent asked "which weekend?" instead of calling a tool** | Prompts use explicit dates, and the agent's instructions include today's date and which tool to use for what. |
+| **Keeping tools single-purpose with only three tools:** the forecast also needs a city lookup | Each tool owns one effect: the Data tool only reads, the Action tool only writes, the Orchestration tool only coordinates. The city lookup stays inside the Data tool instead of becoming a fourth tool. |
+| **Ambiguous city names:** "Tripoli" resolves to Libya, not Lebanon | The tool accepts "City, Country", e.g. "Tripoli, Lebanon". |
+| **A failure could leave a half-saved trip** | `plan_trip` calls the real tools through the server (`mcp.call_tool`). If a step fails, it stops, says which step failed, and saves nothing ("stopped at step 1 … Nothing was saved"). |
+| **The weather API timed out during development** | One automatic retry, then a clear error instead of a silent failure. |
 
 ## Setup
 
